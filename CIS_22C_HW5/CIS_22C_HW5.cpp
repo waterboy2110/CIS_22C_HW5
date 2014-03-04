@@ -10,15 +10,13 @@ string removeTrailingWhiteSpace(string);			// Clean up student name string of tr
 int main(array<System::String ^> ^args)
 {
 	// Create a pointer to a new priority heap and allocate
-	
-	PriorityHeap *ptrPriorityHeap; // = new PriorityHeap;
-	//ptrPriorityHeap = new PriorityHeap;
+	PriorityHeap *ptrPriorityHeap = new PriorityHeap;
 	/*
 
 	*/
 
 	// Add the file data to the node
-  // bool success = processFile(ptrPriorityHeap);
+	bool success = processFile(ptrPriorityHeap);
 
     return 0;
 }
@@ -49,6 +47,7 @@ bool processFile(PriorityHeap *heap)
 	// Process each string in the file beginnging with students PIN
   while (getline(inFile, readStr, ' '))
   {
+	  
 	  // node.pin = atoi(readStr.c_str());		// Finish processing the students PIN
 
 	   getline(inFile, readStr, ';');			// Process the students name
@@ -57,9 +56,10 @@ bool processFile(PriorityHeap *heap)
 	   getline(inFile, readStr);				// Process the students gpa
 	  // node.gpa = atof(readStr.c_str());
 
-	  // cout << "DEBUG node data: " << node.pin << " " << node.name << " " << node.gpa << endl;
-	   
+	  // cout << "DEBUG node data: " << customer.getName()<< " " << customer.getMileage << " " << customer.getYears << endl;
+	  // heap->addCustomer(customer);
 	  // tree->addNode(node);						// Add the node to the tree
+	  
 	   empty = false;
    }
 

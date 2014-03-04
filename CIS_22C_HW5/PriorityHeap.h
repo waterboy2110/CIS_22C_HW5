@@ -27,6 +27,11 @@ private:
 	Customer *left;		// Pointer to the left child.
 
 public:
+	string getName(){return name;}
+	//void setName(string name){name = this;}
+	int getMileage(){return mileage;}
+	int getYears(){return years;}
+
 	Customer getRightLeaf(){return *right;}			// Return the right pointer.
 	Customer getLeftLeaf(){return *left;}			// Return the left pointer.
 
@@ -39,11 +44,11 @@ public:
 class PriorityHeap
 {
 public:
-	PriorityHeap();
+	//PriorityHeap();
 	~PriorityHeap();
 
 	// Heap Operations
-	bool addNode(Customer);								// Add a customer
+	bool addCustomer(Customer);								// Add a customer
 	
 
 	bool isEmpty() const;								// Determine if tree is empty
