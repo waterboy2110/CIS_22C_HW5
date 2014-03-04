@@ -10,7 +10,9 @@ string removeTrailingWhiteSpace(string);			// Clean up student name string of tr
 int main(array<System::String ^> ^args)
 {
 	// Create a pointer to a new priority heap and allocate
-	//PriorityHeap *ptrPriorityHeap = new PriorityHeap;
+	
+	PriorityHeap *ptrPriorityHeap; // = new PriorityHeap;
+	//ptrPriorityHeap = new PriorityHeap;
 	/*
 
 	*/

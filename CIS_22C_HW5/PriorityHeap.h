@@ -15,7 +15,7 @@
 
 using namespace std;
 
-class Customer				// Customer object
+class Customer			// Customer object
 {
 private:					
 	string name;		// Customers name.
