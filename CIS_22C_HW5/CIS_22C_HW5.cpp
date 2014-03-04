@@ -47,10 +47,18 @@ bool processFile(PriorityHeap *heap)
 	// Process each string in the file beginnging with students PIN
   while (getline(inFile, readStr, ' '))
   {
-	  
+	  customer.setName(removeTrailingWhiteSpace(readStr));
+
+	  /*
+	  1. an array based implementaton
+	  2. For now just build the heap using the add method in the book
+	  3. after the add to heap is called we can add it to a vector or walk the heap into a vector
+	  4. Ask the prof about building it in an array - why not just use a heap object?
+
+	  */
 	  // node.pin = atoi(readStr.c_str());		// Finish processing the students PIN
 
-	   getline(inFile, readStr, ';');			// Process the students name
+	   getline(inFile, readStr, ' ');			// Process the students name
 	   //node.name = removeTrailingWhiteSpace(readStr);
 
 	   getline(inFile, readStr);				// Process the students gpa

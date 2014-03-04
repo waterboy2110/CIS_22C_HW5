@@ -26,14 +26,23 @@ private:
 	Customer *right;	// Pointer to the right child.
 	Customer *left;		// Pointer to the left child.
 
-public:
-	string getName(){return name;}
-	//void setName(string name){name = this;}
-	int getMileage(){return mileage;}
-	int getYears(){return years;}
 
-	Customer getRightLeaf(){return *right;}			// Return the right pointer.
-	Customer getLeftLeaf(){return *left;}			// Return the left pointer.
+public:
+	// Sets and Gets for private data members.
+	string getName(){return name;} const
+	int getMileage(){return mileage;} const
+	int getYears(){return years;} const
+	int getSerialNumber(){return serialNumber;} const
+	int getPriority(){return priority;} const
+
+	void setName(string){name = this->name;}
+	void setMileage(int){mileage = this->mileage;}
+	void setYears(int){years = this->years;}
+	void setPriority(int){priority = this->priority;}
+	void setSerialNumber(int){serialNumber = this->serialNumber;}
+
+	Customer getRightLeaf(){return *right;}					// Return the right pointer.
+	Customer getLeftLeaf(){return *left;}					// Return the left pointer.
 
 
 	// Constructor and Destructor
