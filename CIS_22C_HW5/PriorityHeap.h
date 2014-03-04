@@ -60,7 +60,7 @@ public:
 	void printLevel(Customer*);							// Prints the Heap in a level order
 
 private:
-	Customer *root;											// Pointer to the root of the Binary Search Tree
+	Customer *root;										// Pointer to the root of the Binary Search Tree
 	int count;
 };
 
