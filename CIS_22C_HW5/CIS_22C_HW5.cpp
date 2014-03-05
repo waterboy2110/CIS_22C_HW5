@@ -5,18 +5,19 @@ using namespace System;
 
 // Function Prototypes
 bool processFile(PriorityHeap *);					// Open and process the input file
-string removeTrailingWhiteSpace(string);			// Clean up student name string of trailing junk
+void Strtok(vector<string>*, string, char*);		// Split up the string into sub strings.
 
 int main(array<System::String ^> ^args)
 {
 	// Create a pointer to a new priority heap and allocate
 	PriorityHeap *ptrPriorityHeap = new PriorityHeap;
-	/*
-
-	*/
 
 	// Add the file data to the node
 	bool success = processFile(ptrPriorityHeap);
+	// Set SerialNumber must be calculated after file is processed
+	// (- serial number = priority * 1000 + (1000 – number of customers))
+
+	// Call printManager to display output.
 
     return 0;
 }
@@ -35,8 +36,11 @@ bool processFile(PriorityHeap *heap)
    bool empty = true;
    fileName = "overbooked.txt";
    Customer customer;
+   vector<string> vString;
+   string name;
+   int count = 0;
 
-	// Open file to read, if couldn't open, display error
+   // Open file to read, if couldn't open, display error
    // and exit with false
    inFile.open(fileName.c_str());
    if (!inFile)
@@ -44,10 +48,40 @@ bool processFile(PriorityHeap *heap)
       cout << "Error opening " << fileName << "!\n";
       return false;
    }
-	// Process each string in the file beginnging with students PIN
-  while (getline(inFile, readStr, ' '))
+	// Process each string in the file.
+  while (getline(inFile, readStr))
   {
-	  customer.setName(removeTrailingWhiteSpace(readStr));
+	  // Seperate the strings into groups of strings and numbers.
+	  // If the vector has 5 elements the name has 3.
+	  Strtok(&vString, readStr, " ");
+	  if(vString.size() == 5)
+		  name = vString[0] + " " + vString[1] + " " + vString[2];
+	  else
+		  name = vString[0] + " " + vString [1];
+	  // Set Customer data.
+	  customer.setName(name);
+	  customer.setMileage(atoi(vString[vString.size() - 2].c_str()));
+	  customer.setYears(atoi(vString[vString.size() - 1].c_str()));
+	  
+	  // Update the number of customers - this is also the sequence number
+	  count++;
+
+	  /*
+	  Priority number = A / 1000 + B – C
+		where
+		A is the customer’s total mileage in the past year
+		B is the number of years in her or his frequent flier program
+		C is the sequence number representing the customer’s arrival position when s/he booked the flight 
+		(the first customer’s sequence number is 1, second in the file is 2, and so on).
+	  */
+	  customer.setPriority(customer.getMileage() / 1000 + customer.getYears() - count);
+
+	  
+	  // What a Pain...
+	  cout << "DEBUG " << customer.getName() << " " << customer.getMileage() << " " << customer.getYears() << endl;
+
+
+		  
 
 	  /*
 	  1. an array based implementaton
@@ -56,19 +90,10 @@ bool processFile(PriorityHeap *heap)
 	  4. Ask the prof about building it in an array - why not just use a heap object?
 
 	  */
-	  // node.pin = atoi(readStr.c_str());		// Finish processing the students PIN
-
-	   getline(inFile, readStr, ' ');			// Process the students name
-	   //node.name = removeTrailingWhiteSpace(readStr);
-
-	   getline(inFile, readStr);				// Process the students gpa
-	  // node.gpa = atof(readStr.c_str());
-
-	  // cout << "DEBUG node data: " << customer.getName()<< " " << customer.getMileage << " " << customer.getYears << endl;
-	  // heap->addCustomer(customer);
-	  // tree->addNode(node);						// Add the node to the tree
-	  
+	 // heap->addCustomer(customer);
+	  heap->setCount(count);
 	   empty = false;
+	   vString.clear();
    }
 
    inFile.close();
@@ -79,20 +104,26 @@ bool processFile(PriorityHeap *heap)
    return true;
 }
 
-//**************************************************
-// Definition of function removeTrailingWhiteSpace.
-// This function removes trailing white spaces at
-// the back of the string, str, and returns the new
-// string. Removes trailing tabs, line feeds,
-// spaces, and carriage returns.
-//**************************************************
-string removeTrailingWhiteSpace(string str)
+//***************************************************
+// Definition of function Strok.
+// This function tokenizes the string and returns
+// each element of the string as a string in a vector.
+//***************************************************
+
+void Strtok(vector<string>* vstring, string cptr, char* delimiter)
 {
-   int i = str.length() - 1;  // zero based
-   while (str[i] == '\t' || str[i] == '\n' || str[i] == ' ' || str[i] == '\r')
-   {
-      str.erase(i, 1);
-      i--;
-   }
-   return str;
+	string astring = cptr;
+	string stemp;
+	int start = 0;
+	int index = astring.find(delimiter);
+	// Process the string and load the vector
+	while (index != string::npos)
+	{
+		stemp.assign(astring,start,index-start);
+		vstring->push_back(stemp);
+		start = index + 1;
+		index = astring.find(delimiter,start);
+	}
+	stemp.assign(astring,start,astring.length()-start);
+	vstring->push_back(stemp);
 }

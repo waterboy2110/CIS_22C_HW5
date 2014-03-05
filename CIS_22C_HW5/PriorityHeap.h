@@ -35,11 +35,12 @@ public:
 	int getSerialNumber(){return serialNumber;} const
 	int getPriority(){return priority;} const
 
-	void setName(string){name = this->name;}
-	void setMileage(int){mileage = this->mileage;}
-	void setYears(int){years = this->years;}
-	void setPriority(int){priority = this->priority;}
-	void setSerialNumber(int){serialNumber = this->serialNumber;}
+	void setName(string inName){name = inName;}
+	void setMileage(int inMileage){mileage = inMileage;}
+	void setYears(int inYears){years = inYears;}
+	void setSerialNumber(int inSerialNumber){serialNumber = inSerialNumber;}
+	void setPriority(int inPriority){priority = inPriority;}
+
 
 	Customer getRightLeaf(){return *right;}					// Return the right pointer.
 	Customer getLeftLeaf(){return *left;}					// Return the left pointer.
@@ -57,19 +58,15 @@ public:
 	~PriorityHeap();
 
 	// Heap Operations
-	bool addCustomer(Customer);								// Add a customer
-	
-
+	bool addCustomer(Customer);							// Add a customer
+	void reHeapUp();
+	void reHeapDn();
 	bool isEmpty() const;								// Determine if tree is empty
     void clear(Customer*);								// Delete all Customers in the heap.
-
 	void inOrderPrint(Customer*); const					// Traverse the tree and print ordered results
-	
 	int getCount() const {return count;}				// Returns the count of the Heap
-	
 	Customer getRoot() const {return *root;}			// Returns the root of the Heap
-
-
+	void setCount(int inCount){count = inCount;}		// Set the number of customers
 	bool isLeaf(Customer*);								// Return true if Customer is a leaf
 	void printLevel(Customer*);							// Prints the Heap in a level order
 
