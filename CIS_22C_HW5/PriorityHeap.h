@@ -45,11 +45,11 @@ public:
 	int getSerialNumber(){return serialNumber;} const
 	int getPriority(){return priority;} const
 
-	void setName(string inName){name = inName;}
-	void setMileage(int inMileage){mileage = inMileage;}
-	void setYears(int inYears){years = inYears;}
-	void setSerialNumber(int inSerialNumber){serialNumber = inSerialNumber;}
-	void setPriority(int inPriority){priority = inPriority;}
+	void setName(string aName){name = aName;}
+	void setMileage(int aMileage){mileage = aMileage;}
+	void setYears(int aYears){years = aYears;}
+	void setSerialNumber(int aSerialNumber){serialNumber = aSerialNumber;}
+	void setPriority(int aPriority){priority = aPriority;}
 
 
 	Customer getRightLeaf(){return *right;}					// Return the right pointer.

@@ -44,7 +44,7 @@ bool processFile(PriorityHeap *heap)
    Customer customer;
    vector<string> vString;
    string name;
-   int count = 0;
+   int priority = 0;
 
    // Open file to read, if couldn't open, display error
    // and exit with false
@@ -70,7 +70,7 @@ bool processFile(PriorityHeap *heap)
 	  customer.setYears(atoi(vString[vString.size() - 1].c_str()));
 	  
 	  // Update the number of customers - this is also the sequence number
-	  count++;
+	  priority++;
 
 	  /*
 	  Priority number = A / 1000 + B – C
@@ -80,7 +80,7 @@ bool processFile(PriorityHeap *heap)
 		C is the sequence number representing the customer’s arrival position when s/he booked the flight 
 		(the first customer’s sequence number is 1, second in the file is 2, and so on).
 	  */
-	  customer.setPriority(customer.getMileage() / 1000 + customer.getYears() - count);
+	  customer.setPriority(customer.getMileage() / 1000 + customer.getYears() - priority);
 
 	  
 	  // What a Pain...
@@ -97,7 +97,6 @@ bool processFile(PriorityHeap *heap)
 
 	  */
 	 // heap->addCustomer(customer);
-	  heap->setCount(count);
 	   empty = false;
 	   vString.clear();
    }

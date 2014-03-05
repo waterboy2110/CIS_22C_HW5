@@ -29,7 +29,9 @@ bool PriorityHeap::addCustomer(Customer customerNode)
 		Really just want to add nodes in a breadth fasion
 		Should be able to walk the tree and look for nulls
 
-		
+		make ritht and left public and get ride of the get and set - no need - seems to work
+		update count here and use priotity as the counter in main
+		just try a couple recursive methods and see what they do
 		*/										// but I'm making the same assignment below in the if...
 	
 
@@ -44,7 +46,7 @@ bool PriorityHeap::addCustomer(Customer customerNode)
 		while(Pwalk)
 		{
 			parent = Pwalk;
-			//if(newCustomer->getLeftLeaf())
+			//if(customerNode->getLeftLeaf())
 				*Pwalk = Pwalk->getLeftLeaf();
 			//else
 				*Pwalk = Pwalk->getRightLeaf();
