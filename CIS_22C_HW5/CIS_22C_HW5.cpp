@@ -1,4 +1,10 @@
 // CIS_22C_HW5.cpp : main project file.
+/***********************
+James Agua
+CIS 22C Deanza Winter
+Binary Search Tree
+Homework 4
+***********************/
 
 #include "stdafx.h"
 using namespace System;
@@ -85,8 +91,8 @@ bool processFile(PriorityHeap *heap)
 
 	  /*
 	  1. an array based implementaton
-	  2. For now just build the heap using the add method in the book
-	  3. after the add to heap is called we can add it to a vector or walk the heap into a vector
+	  2. For now just build the heap using the add method in the book using the priority number to build the heap
+	  3. after the add to heap is called we can add it an array based on serial number.
 	  4. Ask the prof about building it in an array - why not just use a heap object?
 
 	  */
