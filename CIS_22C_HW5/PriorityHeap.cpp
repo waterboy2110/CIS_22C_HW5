@@ -41,17 +41,17 @@ void PriorityHeap::reHeapUp(Customer &heap)		//examples use index to array - sho
 /*
 Algorithm reheapUp ( newElement )
 
-    if ( newElement is not the root of the heap)
-        parent = parent of the newElement
-        if ( newElement key > parent key)
-            exchange newElement and parent
-            reheapUp(parent)
+    if ( newElement is not the root of the heap)	//if new element NOT vector[0] //this is root.
+        parent = parent of the newElement			// calc parent = (bottom - 1) / 2
+        if ( newElement key > parent key)			// if (cust.getSN() > parentSN)
+            exchange newElement and parent			// swap newElement and parent
+            reheapUp(parent)						// call reheapUp with parent.
         end if
     end if
 end reheapUp
 
 * From an example
-void Heap::ReheapUp(int root, int bottom)
+void Heap::ReheapUp(int root, int bottom)		// root is always 0, parent is calculated
 {
  int parent;
  
@@ -161,9 +161,9 @@ bool PriorityHeap::insertHeap(Customer cust)
 	calcSerialNumber(cust);
 	customers.push_back(cust);	
 	cout << "DEBUG in INSERT " << customers[count].getName() 
-		<< " " << customers[count].getSerialNumber() << endl;
+		<< " " << customers[count].getSerialNumber() <<  endl;
+	reHeapUp(customers[count]);
 	count++;
-
 	return true;
 
 /*

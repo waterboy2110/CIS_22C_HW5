@@ -83,7 +83,7 @@ public:
     void deleteHeap(int, Customer&);					// Delete all Customers in the heap.
 	void heapPrint() const;								// Prints the heap.
 	void setCount(int aCount){count = aCount;}			// Needed to initialize count.
-	void calcSerialNumber(Customer&);			// Calculate the SN in the insertHeap method
+	void calcSerialNumber(Customer&);					// Calculate the SN in the insertHeap method
 	int getCount() const {return count;}				// Returns the count of the Heap
 	Customer getRoot() const {return *root;}			// Returns the root of the Heap **MAY NOT NEED THIS
 	//bool isLeaf(Customer*);								// Return true if Customer is a leaf
