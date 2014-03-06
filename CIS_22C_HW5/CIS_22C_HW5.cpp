@@ -96,7 +96,7 @@ bool processFile(PriorityHeap *heap)
 	  4. Ask the prof about building it in an array - why not just use a heap object?
 
 	  */
-	 // heap->addCustomer(customer);
+	   heap->insertHeap(customer);
 	   empty = false;
 	   vString.clear();
    }

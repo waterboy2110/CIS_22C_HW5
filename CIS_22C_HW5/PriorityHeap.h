@@ -66,14 +66,22 @@ class PriorityHeap
 public:
 	//PriorityHeap();
 	~PriorityHeap();
+	/*
+	struct Heap {
+  void ReheapDown(int, int);
+  void ReheapUp(int, int);
+  int *elements;
+  int numElements;   // heap elements
+};
 
+	*/
 	// Heap Operations
-	bool addCustomer(Customer);							// Add a customer
-	void reHeapUp();
-	void reHeapDn();
+	bool insertHeap(Customer);							// Add a customer::example from class
+	void reHeapUp(Customer&);							// ReHeapUp example from class
+	void reHeapDn(Customer&);							// ReHeapDn example from class
 	bool isEmpty() const;								// Determine if tree is empty
-    void clear(Customer*);								// Delete all Customers in the heap.
-	void inOrderPrint(Customer*); const					// Traverse the tree and print ordered results
+    void deleteHeap(int, Customer&);							// Delete all Customers in the heap.
+	//void inOrderPrint(Customer*); const					// Traverse the tree and print ordered results
 	int getCount() const {return count;}				// Returns the count of the Heap
 	Customer getRoot() const {return *root;}			// Returns the root of the Heap
 	void setCount(int inCount){count = inCount;}		// Set the number of customers
