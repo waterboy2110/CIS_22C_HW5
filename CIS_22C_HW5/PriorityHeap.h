@@ -80,16 +80,18 @@ public:
 	void reHeapUp(Customer&);							// ReHeapUp example from class
 	void reHeapDn(Customer&);							// ReHeapDn example from class
 	bool isEmpty() const;								// Determine if tree is empty
-    void deleteHeap(int, Customer&);							// Delete all Customers in the heap.
-	//void inOrderPrint(Customer*); const					// Traverse the tree and print ordered results
+    void deleteHeap(int, Customer&);					// Delete all Customers in the heap.
+	void heapPrint() const;								// Prints the heap.
+	void setCount(int aCount){count = aCount;}			// Needed to initialize count.
+	void calcSerialNumber(Customer&);			// Calculate the SN in the insertHeap method
 	int getCount() const {return count;}				// Returns the count of the Heap
-	Customer getRoot() const {return *root;}			// Returns the root of the Heap
-	void setCount(int inCount){count = inCount;}		// Set the number of customers
-	bool isLeaf(Customer*);								// Return true if Customer is a leaf
-	void printLevel(Customer*);							// Prints the Heap in a level order
+	Customer getRoot() const {return *root;}			// Returns the root of the Heap **MAY NOT NEED THIS
+	//bool isLeaf(Customer*);								// Return true if Customer is a leaf
+	//void printLevel(Customer*);							// Prints the Heap in a level order
+	
 
 private:
-	Customer *root;										// Pointer to the root of the Binary Search Tree
+	Customer *root;										// Pointer to the root - not sure this is needed
 	int count;
 };
 

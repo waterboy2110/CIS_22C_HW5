@@ -1,5 +1,4 @@
 // CIS_22C_HW5.cpp
-
 /***********************
 James Agua
 CIS 22C Deanza Winter
@@ -8,6 +7,9 @@ Homework 4
 ***********************/
 
 #include "stdafx.h"
+
+
+vector<Customer> customers;
 
 //*************************************
 // Definition of method addNode
@@ -129,22 +131,48 @@ http://sourcecodemania.com/heap-data-structure-in-cpp/
 }
 
 // **************************************************
+// Definition of calcSerialNumber
+// Calculates the serial number of each customer.
+// The serial number is the the ordering number of
+// the hash table.
+// serial number = priority * 1000 + (1000 – number of customers)
+// Pre - a pointer to the customer
+// Post - the serialNumber of the customer is updated.
+// **************************************************
+void PriorityHeap::calcSerialNumber(Customer &cust)
+{
+	int serialNumber;
+	serialNumber = cust.getPriority() * 1000 + (1000 - (count + 1));
+	cust.setSerialNumber(serialNumber);
+}
+
+// **************************************************
 // Definition of insertHeap
-//
-//
+// Inserts customers into an array heap using a vector
+// so that the heap is dynamic. Calls calcSerialNumber()
+// as this is used to rebuid the heap in each insert.
+// Pre - A customer object
+// Post - Adds the customer to the vector, updates the
+// serialNumber and adds it to the customer and reorders
+// the heap.
 // **************************************************
 bool PriorityHeap::insertHeap(Customer cust)
 {
-	cout << "not implemented" << endl;
+	calcSerialNumber(cust);
+	customers.push_back(cust);	
+	cout << "DEBUG in INSERT " << customers[count].getName() 
+		<< " " << customers[count].getSerialNumber() << endl;
+	count++;
+
 	return true;
 
 /*
 Algorithm insertHeap ( newData )
 
-    if (heap is full)
+    if (heap is full)			//dont care using vector
         return false
     end if
-    last = last + 1
+    last = last + 1				// using pushback
     heap[last] = newData
     reheapUp(last)
     return true
@@ -175,51 +203,3 @@ end deleteHeap
 */
 }
 
-
-// What I was working on - Delete if everything else seems to work.
-//bool PriorityHeap::addCustomer(Customer customerNode)
-//{
-//	bool success = false;
-//	Customer *Pwalk;							// Pointer to walk the tree
-//	Customer *parent = NULL;					// Pointer to the parent node
-//	Customer *newCustomer = new Customer;		// Create a new node for the tree
-//	*newCustomer = customerNode;				// Strange - only sorts correctly if I make this assignment
-//		/*
-//		Really just want to add nodes in a breadth fasion
-//		Should be able to walk the tree and look for nulls
-//
-//		just try a couple recursive methods and see what they do
-//		*/										// but I'm making the same assignment below in the if...
-//	
-//
-//	if(root == NULL)				// First node to be saved is always the root
-//	{
-//		root = new Customer;
-//		*root = customerNode;
-//	}
-//	else							// Walk the tree to find the next empty node
-//	{
-//		Pwalk = root;
-//		while(Pwalk)
-//		{
-//			parent = Pwalk;
-//			if(*customerNode->getLeftLeaf())
-//				*Pwalk = Pwalk->getLeftLeaf();
-//			//else
-//				*Pwalk = Pwalk->getRightLeaf();
-//		}
-//		
-///*		if(newNode->name < parent->name)
-//		{
-//			parent->left = newNode;
-//			*newNode = studentNode;
-//		}
-//		else
-//		{
-//			parent->right = newNode;
-//			*newNode = studentNode;
-//		}*/		
-//	}
-//	count++;
-//	return success;
-//}

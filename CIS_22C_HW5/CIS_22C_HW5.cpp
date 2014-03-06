@@ -5,6 +5,14 @@ CIS 22C Deanza Winter
 Binary Search Tree
 Homework 4
 ***********************/
+	  /*
+	  Priority number = A / 1000 + B – C
+		where
+		A is the customer’s total mileage in the past year
+		B is the number of years in her or his frequent flier program
+		C is the sequence number representing the customer’s arrival position when s/he booked the flight 
+		(the first customer’s sequence number is 1, second in the file is 2, and so on).
+	  */
 
 #include "stdafx.h"
 using namespace System;
@@ -16,15 +24,15 @@ void Strtok(vector<string>*, string, char*);		// Split up the string into sub st
 int main(array<System::String ^> ^args)
 {
 	// Create a pointer to a new priority heap and allocate
-	PriorityHeap *ptrPriorityHeap = new PriorityHeap;
+	PriorityHeap *ptrPriorityHeap = new PriorityHeap;		// Create a heap
+	ptrPriorityHeap->setCount(0);							// Initialize the heaps counter
 
 	// Add the file data to the node
 	bool success = processFile(ptrPriorityHeap);
-	// Set SerialNumber must be calculated after file is processed
-	// (- serial number = priority * 1000 + (1000 – number of customers))
 
 	// Call printManager to display output.
 
+	cout << "\n\t***goodbye***\n";
     return 0;
 }
 
@@ -44,7 +52,7 @@ bool processFile(PriorityHeap *heap)
    Customer customer;
    vector<string> vString;
    string name;
-   int priority = 0;
+   int sequence = 0;
 
    // Open file to read, if couldn't open, display error
    // and exit with false
@@ -65,40 +73,18 @@ bool processFile(PriorityHeap *heap)
 	  else
 		  name = vString[0] + " " + vString [1];
 	  // Set Customer data.
-	  customer.setName(name);
-	  customer.setMileage(atoi(vString[vString.size() - 2].c_str()));
-	  customer.setYears(atoi(vString[vString.size() - 1].c_str()));
-	  
-	  // Update the number of customers - this is also the sequence number
-	  priority++;
+	  customer.setName(name);												// Set the name
+	  customer.setMileage(atoi(vString[vString.size() - 2].c_str()));		// Set the mileage
+	  customer.setYears(atoi(vString[vString.size() - 1].c_str()));			// Set the years
+	  sequence++;															// Update the sequence number
+	  // Set the customers priority number.
+	  customer.setPriority(customer.getMileage() / 1000 + customer.getYears() - sequence);
 
-	  /*
-	  Priority number = A / 1000 + B – C
-		where
-		A is the customer’s total mileage in the past year
-		B is the number of years in her or his frequent flier program
-		C is the sequence number representing the customer’s arrival position when s/he booked the flight 
-		(the first customer’s sequence number is 1, second in the file is 2, and so on).
-	  */
-	  customer.setPriority(customer.getMileage() / 1000 + customer.getYears() - priority);
+	  //cout << "DEBUG " << customer.getName() << " " << customer.getMileage() << " " << customer.getYears() << endl;
 
-	  
-	  // What a Pain...
-	  cout << "DEBUG " << customer.getName() << " " << customer.getMileage() << " " << customer.getYears() << endl;
-
-
-		  
-
-	  /*
-	  1. an array based implementaton
-	  2. For now just build the heap using the add method in the book using the priority number to build the heap
-	  3. after the add to heap is called we can add it an array based on serial number.
-	  4. Ask the prof about building it in an array - why not just use a heap object?
-
-	  */
-	   heap->insertHeap(customer);
+	   heap->insertHeap(customer);											// Add the user to the heap
 	   empty = false;
-	   vString.clear();
+	   vString.clear();														// Clear the tokenizing vector
    }
 
    inFile.close();
