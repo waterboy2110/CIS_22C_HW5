@@ -11,6 +11,21 @@ Homework 5
 vector<Customer> customers;						// A dynamic array of customer objects
 
 // **************************************************
+// Definition of heapPrint
+// Loops through the heap for the size of the heap (array)
+// and prints the output.
+// Pre - nothing
+// Post - Prints the entire heap (array)
+// **************************************************
+void PriorityHeap::heapPrint() const
+{
+	cout << "The Heap Contains:\n";
+	for(int i = 0; i < count; i++)
+		cout << customers[i].getName() 
+		<< " " << customers[i].getSerialNumber() << endl;
+}
+
+// **************************************************
 // Definition of reHeapUp
 // Calculates the parent index (bottom -1) / 2
 // and determines if the bottom (last in) customer
@@ -45,30 +60,36 @@ void PriorityHeap::reHeapUp(int bottom)
 //
 //
 // **************************************************
-void PriorityHeap::reHeapDn(Customer &customer)
+void PriorityHeap::reHeapDn(int root, int bottom)
 {
-	cout << "not implemented" << endl;
-	/*
-	Algorithm reheapDown ( root, last )
+	Customer temp;
+	int maxChild, rightChild, leftChild;
+	leftChild	= 2 * root + 1;
+	rightChild	= 2 * root + 2;
 
-    if ( there is a left child)
-        leftKey = left child key
-        if ( there is a left child)
-            rightKey = right child key
-        else
-            rightKey = null
-        end if
-        largest= right child
-        if ( leftKey > rightKey)
-             largest = left child
-        end if
-        if (root key < largest key)
-            swap root and largest
-            reheapDown(largest, last)
-        end if
-    end if
-end reheapDown
+	//if(customers[leftChild].getSerialNumber() <= customers[bottom].getSerialNumber())		// Left child is part of the heap
+	if(leftChild <= bottom)
+	{
+		if(leftChild == bottom)																// Only one child
+			maxChild = leftChild;
+		else
+		{
+			if(customers[leftChild].getSerialNumber() <= customers[rightChild].getSerialNumber())
+				maxChild = rightChild;
+			else
+				maxChild = leftChild;
+		}
+		if(customers[root].getSerialNumber() < customers[maxChild].getSerialNumber())
+		{    //swap
+			temp = customers[root];
+			customers[root] = customers[maxChild];
+			customers[maxChild] = temp;
+			reHeapDn(maxChild, bottom);
+		}
+	}
+
 	
+	/*	
 From example
 void Heap::ReheapDown(int root, int bottom)
 {
@@ -96,6 +117,26 @@ void Heap::ReheapDown(int root, int bottom)
   }
 }
 http://sourcecodemania.com/heap-data-structure-in-cpp/
+	
+		Algorithm reheapDown ( root, last )
+
+    if ( there is a left child)
+        leftKey = left child key
+        if ( there is a left child)
+            rightKey = right child key
+        else
+            rightKey = null
+        end if
+        largest= right child
+        if ( leftKey > rightKey)
+             largest = left child
+        end if
+        if (root key < largest key)
+            swap root and largest
+            reheapDown(largest, last)
+        end if
+    end if
+end reheapDown
 	*/
 
 }
@@ -133,16 +174,13 @@ bool PriorityHeap::insertHeap(Customer cust)
 	customers.push_back(cust);						// Insert the customer into the array
 	
 	// New Customer to insert
-	cout << "DEBUG in INSERT " << customers[count].getName() 
+	cout << "\nInsert Customer: " << customers[count].getName() 
 		<< " " << customers[count].getSerialNumber() <<  endl;
 
 	reHeapUp(count);								// Call reHeapUp after each insert
 	count++;
 
-	// Building the Heap
-	for(int i = 0; i < count; i++)
-		cout << "DEBUG: The Heap " << customers[i].getName() 
-		<< " " << customers[i].getSerialNumber() << endl;
+	heapPrint();
 
 	return true;
 }
@@ -152,12 +190,20 @@ bool PriorityHeap::insertHeap(Customer cust)
 //
 //
 // **************************************************
-void deleteHeap(int last, Customer &dataOut)
-
+bool PriorityHeap::deleteRoot(int last, Customer &customerOut)
 {
-	cout << "Not Implemented\n";
+	if(customers.size() == 0)				// Heap is empty
+		return false;
+	
+	customerOut = customers[0];
+	customers[0] = customers[last];
+	reHeapDn(0, last);
+	setCount(last--);
+	customers.pop_back();					// Delete the bottom customer (was the root)
+	return true;
+
 /*
-Algorithm deleteHeap ( last, dataOut )
+Algorithm deleteHeap ( last, dataOut )  // last is the count
 
     if (heap is empty)
         return false

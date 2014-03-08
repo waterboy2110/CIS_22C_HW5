@@ -30,7 +30,7 @@ int main(array<System::String ^> ^args)
 	bool success = processFile(ptrPriorityHeap);			// Add the file data to the node
 
 	// Call printManager to display output.
-
+	// delete ptrPriorityHeap;
 	cout << "\n\t***goodbye***\n";
     return 0;
 }
