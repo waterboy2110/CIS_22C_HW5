@@ -33,8 +33,8 @@ private:
 	int years;			// Number of years customer has flown.
 	int priority;		// Priority is the order in which the file is read.
 	int serialNumber;	// = priority * 1000 + (1000 - count).
-	Customer *right;	// Pointer to the right child.
-	Customer *left;		// Pointer to the left child.
+	//Customer *right;	// Pointer to the right child.
+	//Customer *left;		// Pointer to the left child.
 
 
 public:
@@ -52,12 +52,12 @@ public:
 	void setPriority(int aPriority){priority = aPriority;}
 
 
-	Customer getRightLeaf(){return *right;}					// Return the right pointer.
-	Customer getLeftLeaf(){return *left;}					// Return the left pointer.
+	//Customer getRightLeaf(){return *right;}					// Return the right pointer.
+	//Customer getLeftLeaf(){return *left;}					// Return the left pointer.
 
 
 	// Constructor and Destructor
-	Customer(){name = ""; mileage = 0; years = 0; priority = 0; serialNumber = 0; right = NULL; left = NULL;} 
+	Customer(){name = ""; mileage = 0; years = 0; priority = 0; serialNumber = 0;} 
 	~Customer(){}
 };
 
@@ -77,7 +77,8 @@ public:
 	*/
 	// Heap Operations
 	bool insertHeap(Customer);							// Add a customer::example from class
-	void reHeapUp(Customer&);							// ReHeapUp example from class
+	//void reHeapUp(Customer&);							// ReHeapUp example from class
+	void reHeapUp(int);									// Try with int
 	void reHeapDn(Customer&);							// ReHeapDn example from class
 	bool isEmpty() const;								// Determine if tree is empty
     void deleteHeap(int, Customer&);					// Delete all Customers in the heap.

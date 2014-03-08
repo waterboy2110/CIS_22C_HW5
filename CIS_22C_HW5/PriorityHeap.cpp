@@ -34,14 +34,35 @@ vector<Customer> customers;
 // 
 //
 // **************************************************
-void PriorityHeap::reHeapUp(Customer &heap)		//examples use index to array - should use ints here
+void PriorityHeap::reHeapUp(int bottom)		// examples use index to array - should use ints here
 {
-	cout << "not implemented" << endl;
+	Customer parent;							// Parent object calculated by index
+	Customer temp;								// Temp object used for exchange
+	
+	//for(int i = count; i >=0; i--)
+	//cout << "DEBUG: Reheap Up " << customers[i].getName() << " " << customers[i].getSerialNumber() << endl;
+	
+	//if(newCustomer.getSerialNumber() > customers[0].getSerialNumber())		// argument passed in is not the root
+	if (bottom > 0)
+	{
+		int parentIndex = (bottom - 1) / 2;			// Parent index calculation
+		parent = customers[parentIndex];
+
+		if(customers[bottom].getSerialNumber() > parent.getSerialNumber())
+		{
+			temp = customers[bottom];
+			customers[bottom] = customers[parentIndex];
+			customers[parentIndex] = temp;
+		
+			reHeapUp(parentIndex);
+		}
+	}
+
 
 /*
 Algorithm reheapUp ( newElement )
 
-    if ( newElement is not the root of the heap)	//if new element NOT vector[0] //this is root.
+    if ( newElement is not the root of the heap)	// if new element NOT vector[0] //this is root.
         parent = parent of the newElement			// calc parent = (bottom - 1) / 2
         if ( newElement key > parent key)			// if (cust.getSN() > parentSN)
             exchange newElement and parent			// swap newElement and parent
@@ -162,8 +183,13 @@ bool PriorityHeap::insertHeap(Customer cust)
 	customers.push_back(cust);	
 	cout << "DEBUG in INSERT " << customers[count].getName() 
 		<< " " << customers[count].getSerialNumber() <<  endl;
-	reHeapUp(customers[count]);
+	//reHeapUp(customers[count]);		// try with the count
+	reHeapUp(count);	
 	count++;
+
+	for(int i = 0; i < count; i++)
+		cout << "DEBUG: Insert post reheap " << customers[i].getName() << " " << customers[i].getSerialNumber() << endl;
+
 	return true;
 
 /*
