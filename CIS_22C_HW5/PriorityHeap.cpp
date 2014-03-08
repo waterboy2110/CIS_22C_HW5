@@ -2,92 +2,41 @@
 /***********************
 James Agua
 CIS 22C Deanza Winter
-Binary Search Tree
-Homework 4
+Heaps
+Homework 5
 ***********************/
 
 #include "stdafx.h"
 
+vector<Customer> customers;						// A dynamic array of customer objects
 
-vector<Customer> customers;
-
-//*************************************
-// Definition of method addNode
-// Use interitive mode to find a leaf node in
-// a left / right fasion. 
-// Allows duplicate nodes. Duplicates are stored
-// on the right.
-// Pre - a new student node.
-// Returns a bool if successful.
-//*************************************
-
-/*
-	Will add data to an array. On each add will reheap up to keep the array ordered and to reflect the heap
-	When printing will print the top node (node[0]), move the last node to node[0] and delete the last node
-	calculations: 
-			leftChild = 2*root+1;
-			rightChild = 2*root+2;
-
-*/
 // **************************************************
 // Definition of reHeapUp
-// 
-//
+// Calculates the parent index (bottom -1) / 2
+// and determines if the bottom (last in) customer
+// serial number is greater than the parent serial
+// number. If so, swaps the bottom and parent and
+// the recursivly calls reHeapUp.
+// Pre - the number of customers (int count)
+// Post - the array is heapified by serial number
 // **************************************************
-void PriorityHeap::reHeapUp(int bottom)		// examples use index to array - should use ints here
+void PriorityHeap::reHeapUp(int bottom)
 {
-	Customer parent;							// Parent object calculated by index
-	Customer temp;								// Temp object used for exchange
+	Customer temp;											// Temp object used for exchange
 	
-	//for(int i = count; i >=0; i--)
-	//cout << "DEBUG: Reheap Up " << customers[i].getName() << " " << customers[i].getSerialNumber() << endl;
-	
-	//if(newCustomer.getSerialNumber() > customers[0].getSerialNumber())		// argument passed in is not the root
 	if (bottom > 0)
 	{
-		int parentIndex = (bottom - 1) / 2;			// Parent index calculation
-		parent = customers[parentIndex];
+		int parentIndex = (bottom - 1) / 2;					// Parent index calculation
 
-		if(customers[bottom].getSerialNumber() > parent.getSerialNumber())
+		if(customers[bottom].getSerialNumber() > customers[parentIndex].getSerialNumber())		// is bottom SN larger than parent SN?
 		{
-			temp = customers[bottom];
+			temp = customers[bottom];						// Swap bottom and parent
 			customers[bottom] = customers[parentIndex];
 			customers[parentIndex] = temp;
 		
-			reHeapUp(parentIndex);
-		}
-	}
-
-
-/*
-Algorithm reheapUp ( newElement )
-
-    if ( newElement is not the root of the heap)	// if new element NOT vector[0] //this is root.
-        parent = parent of the newElement			// calc parent = (bottom - 1) / 2
-        if ( newElement key > parent key)			// if (cust.getSN() > parentSN)
-            exchange newElement and parent			// swap newElement and parent
-            reheapUp(parent)						// call reheapUp with parent.
-        end if
-    end if
-end reheapUp
-
-* From an example
-void Heap::ReheapUp(int root, int bottom)		// root is always 0, parent is calculated
-{
- int parent;
- 
- if(bottom > root) // tree is not empty
- {
-   parent = (bottom-1)/2;
-   if(elements[parent] < elements[bottom])
-   {
-     Swap(elements, parent, bottom);
-     ReheapUp(root, parent);
-    }
-  }
-}
-
-*/
+			reHeapUp(parentIndex);							// Call reHeapUp with parentIndex
+		}													// End Swap
+	}														// At the root
 }
 
 // **************************************************
@@ -171,7 +120,8 @@ void PriorityHeap::calcSerialNumber(Customer &cust)
 // Definition of insertHeap
 // Inserts customers into an array heap using a vector
 // so that the heap is dynamic. Calls calcSerialNumber()
-// as this is used to rebuid the heap in each insert.
+// as this is the heaps key. Calls reHeapUp on each
+// customer added.
 // Pre - A customer object
 // Post - Adds the customer to the vector, updates the
 // serialNumber and adds it to the customer and reorders
@@ -179,31 +129,22 @@ void PriorityHeap::calcSerialNumber(Customer &cust)
 // **************************************************
 bool PriorityHeap::insertHeap(Customer cust)
 {
-	calcSerialNumber(cust);
-	customers.push_back(cust);	
+	calcSerialNumber(cust);							// Calculate the SerialNumber - this is the heaps key
+	customers.push_back(cust);						// Insert the customer into the array
+	
+	// New Customer to insert
 	cout << "DEBUG in INSERT " << customers[count].getName() 
 		<< " " << customers[count].getSerialNumber() <<  endl;
-	//reHeapUp(customers[count]);		// try with the count
-	reHeapUp(count);	
+
+	reHeapUp(count);								// Call reHeapUp after each insert
 	count++;
 
+	// Building the Heap
 	for(int i = 0; i < count; i++)
-		cout << "DEBUG: Insert post reheap " << customers[i].getName() << " " << customers[i].getSerialNumber() << endl;
+		cout << "DEBUG: The Heap " << customers[i].getName() 
+		<< " " << customers[i].getSerialNumber() << endl;
 
 	return true;
-
-/*
-Algorithm insertHeap ( newData )
-
-    if (heap is full)			//dont care using vector
-        return false
-    end if
-    last = last + 1				// using pushback
-    heap[last] = newData
-    reheapUp(last)
-    return true
-end insertHeap
-*/
 }
 
 // **************************************************
@@ -214,6 +155,7 @@ end insertHeap
 void deleteHeap(int last, Customer &dataOut)
 
 {
+	cout << "Not Implemented\n";
 /*
 Algorithm deleteHeap ( last, dataOut )
 

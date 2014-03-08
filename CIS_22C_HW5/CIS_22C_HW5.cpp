@@ -2,8 +2,8 @@
 /***********************
 James Agua
 CIS 22C Deanza Winter
-Binary Search Tree
-Homework 4
+Heaps
+Homework 5
 ***********************/
 	  /*
 	  Priority number = A / 1000 + B – C
@@ -27,8 +27,7 @@ int main(array<System::String ^> ^args)
 	PriorityHeap *ptrPriorityHeap = new PriorityHeap;		// Create a heap
 	ptrPriorityHeap->setCount(0);							// Initialize the heaps counter
 
-	// Add the file data to the node
-	bool success = processFile(ptrPriorityHeap);
+	bool success = processFile(ptrPriorityHeap);			// Add the file data to the node
 
 	// Call printManager to display output.
 
@@ -72,6 +71,7 @@ bool processFile(PriorityHeap *heap)
 		  name = vString[0] + " " + vString[1] + " " + vString[2];
 	  else
 		  name = vString[0] + " " + vString [1];
+	 
 	  // Set Customer data.
 	  customer.setName(name);												// Set the name
 	  customer.setMileage(atoi(vString[vString.size() - 2].c_str()));		// Set the mileage
@@ -79,8 +79,6 @@ bool processFile(PriorityHeap *heap)
 	  sequence++;															// Update the sequence number
 	  // Set the customers priority number.
 	  customer.setPriority(customer.getMileage() / 1000 + customer.getYears() - sequence);
-
-	  //cout << "DEBUG " << customer.getName() << " " << customer.getMileage() << " " << customer.getYears() << endl;
 
 	   heap->insertHeap(customer);											// Add the user to the heap
 	   empty = false;
