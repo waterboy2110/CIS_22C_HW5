@@ -59,14 +59,15 @@ private:
 	int count;
 
 public:
-	~PriorityHeap();
+	PriorityHeap(){count = 0;}
+	~PriorityHeap(){}
 
 	// Heap Operations
 	bool insertHeap(Customer);							// Add a customer::example from class
 	void reHeapUp(int);									// ReHeapUp example from class
 	void reHeapDn(int, int);							// ReHeapDn example from class
 	bool isEmpty() const;								// Determine if tree is empty
-    bool deleteRoot(int);								// Delete the root customer in the heap.
+    bool deleteRoot();									// Delete the root customer in the heap.
 	void heapPrint() const;								// Prints the heap.
 	void setCount(int aCount){count = aCount;}			// Needed to initialize count.
 	void calcSerialNumber(Customer&);					// Calculate the SN in the insertHeap method

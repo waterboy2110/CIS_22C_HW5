@@ -25,14 +25,13 @@ void removeCustomers(PriorityHeap *);
 int main(array<System::String ^> ^args)
 {
 	// Create a pointer to a new priority heap and allocate
-	PriorityHeap *ptrPriorityHeap = new PriorityHeap;		// Create a heap
-	ptrPriorityHeap->setCount(0);							// Initialize the heaps counter
+	PriorityHeap *ptrPriorityHeap = new PriorityHeap;
 
 	bool success = processFile(ptrPriorityHeap);			// Add the file data to the node
 
 	removeCustomers(ptrPriorityHeap);						// Remove customers from the heap
 
-	// delete ptrPriorityHeap;
+	delete ptrPriorityHeap;
 	cout << "\n\t***goodbye***\n";
     return 0;
 }
@@ -67,7 +66,7 @@ bool processFile(PriorityHeap *heap)
   while (getline(inFile, readStr))
   {
 	  // Seperate the strings into groups of strings and numbers.
-	  // If the vector has 5 elements the name has 3.
+	  // If the vector has 5 elements the name is the first 3.
 	  Strtok(&vString, readStr, " ");
 	  if(vString.size() == 5)
 		  name = vString[0] + " " + vString[1] + " " + vString[2];
@@ -130,5 +129,7 @@ void Strtok(vector<string>* vstring, string cptr, char* delimiter)
 void removeCustomers(PriorityHeap *heap)
 {
 	for(int i = heap->getCount(); i > 0; i--)
-		heap->deleteRoot(heap->getCount());
+		heap->deleteRoot();
+	if(heap->isEmpty())
+		cout << "\tHeap is empty\n";
 }

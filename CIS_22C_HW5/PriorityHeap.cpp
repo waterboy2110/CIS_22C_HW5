@@ -56,88 +56,39 @@ void PriorityHeap::reHeapUp(int bottom)
 
 // **************************************************
 // Definition of reHeapDn
-//
-//
-//
+// Determine if the bottom of the heap is a left or 
+// right node. Uses calculation to determine left or
+// right. If sub heap requires a swap performs the 
+// swap and calls itself to reform the heap.
+// Pre - The parent of a sub heap
+// Post - The heap is reformed after removeal of a node
 // **************************************************
 void PriorityHeap::reHeapDn(int root, int bottom)
 {
 	Customer temp;
 	int maxChild, rightChild, leftChild;
-	leftChild	= 2 * root + 1;
-	rightChild	= 2 * root + 2;
+	leftChild	= 2 * root + 1;									// Points to the left child of (sub)heapParent
+	rightChild	= 2 * root + 2;									// Points to the right child of (sub)heapParent
 
-	//if(customers[leftChild].getSerialNumber() <= customers[bottom].getSerialNumber())		// Left child is part of the heap
 	if(leftChild <= bottom)
 	{
-		if(leftChild == bottom)																// Only one child
+		if(leftChild == bottom)									// Only one child
 			maxChild = leftChild;
 		else
 		{
 			if(customers[leftChild].getSerialNumber() <= customers[rightChild].getSerialNumber())
 				maxChild = rightChild;
-			else
+			else												// Two children - determine which one to swap with parent
 				maxChild = leftChild;
 		}
 		if(customers[root].getSerialNumber() < customers[maxChild].getSerialNumber())
-		{    //swap
-			temp = customers[root];
-			customers[root] = customers[maxChild];				// crashes here in recursion
+		{    
+			temp = customers[root];								// Swap the bottom node with the subHeap parent
+			customers[root] = customers[maxChild];
 			customers[maxChild] = temp;
 			reHeapDn(maxChild, bottom);							
 		}
 	}
-
-	/*	
-From example
-void Heap::ReheapDown(int root, int bottom)
-{
- int maxChild, rightChild, leftChild;
- 
- leftChild = 2*root+1;
- rightChild = 2*root+2;
- 
- if(leftChild <= bottom) // left child is part of the heap
- {
-   if(leftChild == bottom) // only one child
-        maxChild = leftChild;
-   else
-   {
-        if(elements[leftChild] <= elements[rightChild])
-            maxChild = rightChild;
-        else
-            maxChild = leftChild;
-   }
-   if(elements[root] < elements[maxChild])
-   {
-       Swap(elements, root, maxChild);
-       ReheapDown(maxChild, bottom);
-    }
-  }
-}
-http://sourcecodemania.com/heap-data-structure-in-cpp/
-	
-		Algorithm reheapDown ( root, last )
-
-    if ( there is a left child)
-        leftKey = left child key
-        if ( there is a left child)			//right child?
-            rightKey = right child key
-        else
-            rightKey = null
-        end if
-        largest= right child
-        if ( leftKey > rightKey)
-             largest = left child
-        end if
-        if (root key < largest key)
-            swap root and largest
-            reheapDown(largest, last)
-        end if
-    end if
-end reheapDown
-	*/
-
 }
 
 // **************************************************
@@ -169,8 +120,6 @@ void PriorityHeap::calcSerialNumber(Customer &cust)
 // **************************************************
 bool PriorityHeap::insertHeap(Customer cust)
 {
-
-
 	calcSerialNumber(cust);													// Calculate the SerialNumber - this is the heaps key
 	customers.push_back(cust);												// Insert the customer into the array
 	cout << "\nInsert Customer: " << customers[count].getName() 
@@ -180,45 +129,44 @@ bool PriorityHeap::insertHeap(Customer cust)
 	count++;
 
 	heapPrint();
-
 	return true;
 }
 
 // **************************************************
 // Definition of deleteHeap
-//
-//
+// Determines if heap is empty and returns if so.
+// Swaps the bottom node with the root node and calls
+// reheapDn to reshape the heap (based on customers
+// serialNumber). Removes the bottom node (pop.back())
+// Pre - Nothing
+// Post - Heap is deleted - reshaped and printed one
+// customer at a time.
 // **************************************************
-bool PriorityHeap::deleteRoot(int last)
+bool PriorityHeap::deleteRoot()
 {
-	if(customers.size() == 0)				// Heap is empty
+	if(customers.size() == 0)							// Heap is empty
 		return false;
 	
 	cout << "\nRemoving Customer: " << customers[0].getName() << " " << customers[0].getSerialNumber() << endl;
 
-	customers[0] = customers[customers.size() - 1];			// Move the last node to the root
-	customers.pop_back();								// Delete the last node
-	//setCount(last--);
-	
-	reHeapDn(0, customers.size() - 1);
-	//count--;
-	//setCount(last--);
-	//customers.pop_back();					// Delete the bottom customer (was the root)
+	customers[0] = customers[customers.size() - 1];		// Move the last node to the root
+	customers.pop_back();								// Delete the last node	
+	reHeapDn(0, customers.size() - 1);					// Reshape the heap
 	heapPrint();
+	count--;
 	return true;
+}
 
-/*
-Algorithm deleteHeap ( last, dataOut )  // last is the count
-
-    if (heap is empty)
-        return false
-    end if
-    dataOut = root data
-    heap[0] = heap[last]
-    reheapDown(0, last)
-    return true
-end deleteHeap
-
-*/
+// **************************************************
+// Definition of isEmpty
+// Pre - nothing
+// Post - Returns true if no more customers
+// in the array.
+// **************************************************
+bool PriorityHeap::isEmpty() const
+{
+	if(count == 0)
+		return true;
+	return false;
 }
 

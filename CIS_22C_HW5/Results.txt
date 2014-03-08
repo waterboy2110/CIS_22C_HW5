@@ -1,0 +1,268 @@
+
+// CIS_22C_HW5.cpp
+/***********************
+James Agua
+CIS 22C Deanza Winter
+Heaps
+Homework 5
+***********************/
+
+Program builds array based heap using equations to point to leaves and to determine parents (there are no actual left
+or right pointers in the class, nor is there a root). The array is a vector to allow dynamic sizing. As customers are
+added to the heap the heap is restructured to retain the properties of a heap (reHeapUp) and the heap is printed
+after each insertion to reflect the restructuring.
+Once the file has been processed the customers are removed from the root and the heap is restructured on each remove.
+The heap is printed on each removal to show that the heap retains the properties of a heap.
+
+Final structure of the heap is:
+
+					94988
+		   74995	   	    			93997
+	37991			57999			90998		30993				
+14996		19992	56990		24989	61994
+
+
+
+Insert Customer: Robert Hill 57999
+
+The Heap Contains:
+Robert Hill 57999
+
+Insert Customer: Amanda Trapp 90998
+
+The Heap Contains:
+Amanda Trapp 90998
+Robert Hill 57999
+
+Insert Customer: Jonathan Nguyen 93997
+
+The Heap Contains:
+Jonathan Nguyen 93997
+Robert Hill 57999
+Amanda Trapp 90998
+
+Insert Customer: Mary Lou Gilley 14996
+
+The Heap Contains:
+Jonathan Nguyen 93997
+Robert Hill 57999
+Amanda Trapp 90998
+Mary Lou Gilley 14996
+
+Insert Customer: Warren Rexroad 74995
+
+The Heap Contains:
+Jonathan Nguyen 93997
+Warren Rexroad 74995
+Amanda Trapp 90998
+Mary Lou Gilley 14996
+Robert Hill 57999
+
+Insert Customer: Vincent Gonzales 61994
+
+The Heap Contains:
+Jonathan Nguyen 93997
+Warren Rexroad 74995
+Amanda Trapp 90998
+Mary Lou Gilley 14996
+Robert Hill 57999
+Vincent Gonzales 61994
+
+Insert Customer: Paula Hung 30993
+
+The Heap Contains:
+Jonathan Nguyen 93997
+Warren Rexroad 74995
+Amanda Trapp 90998
+Mary Lou Gilley 14996
+Robert Hill 57999
+Vincent Gonzales 61994
+Paula Hung 30993
+
+Insert Customer: Lou Masson 19992
+
+The Heap Contains:
+Jonathan Nguyen 93997
+Warren Rexroad 74995
+Amanda Trapp 90998
+Lou Masson 19992
+Robert Hill 57999
+Vincent Gonzales 61994
+Paula Hung 30993
+Mary Lou Gilley 14996
+
+Insert Customer: Steve Chu 37991
+
+The Heap Contains:
+Jonathan Nguyen 93997
+Warren Rexroad 74995
+Amanda Trapp 90998
+Steve Chu 37991
+Robert Hill 57999
+Vincent Gonzales 61994
+Paula Hung 30993
+Mary Lou Gilley 14996
+Lou Masson 19992
+
+Insert Customer: Dave Lightfoot 56990
+
+The Heap Contains:
+Jonathan Nguyen 93997
+Warren Rexroad 74995
+Amanda Trapp 90998
+Steve Chu 37991
+Robert Hill 57999
+Vincent Gonzales 61994
+Paula Hung 30993
+Mary Lou Gilley 14996
+Lou Masson 19992
+Dave Lightfoot 56990
+
+Insert Customer: Joanne Brown 24989
+
+The Heap Contains:
+Jonathan Nguyen 93997
+Warren Rexroad 74995
+Amanda Trapp 90998
+Steve Chu 37991
+Robert Hill 57999
+Vincent Gonzales 61994
+Paula Hung 30993
+Mary Lou Gilley 14996
+Lou Masson 19992
+Dave Lightfoot 56990
+Joanne Brown 24989
+
+Insert Customer: Paul Ng 94988
+
+The Heap Contains:
+Paul Ng 94988
+Warren Rexroad 74995
+Jonathan Nguyen 93997
+Steve Chu 37991
+Robert Hill 57999
+Amanda Trapp 90998
+Paula Hung 30993
+Mary Lou Gilley 14996
+Lou Masson 19992
+Dave Lightfoot 56990
+Joanne Brown 24989
+Vincent Gonzales 61994
+
+Removing Customer: Paul Ng 94988
+
+The Heap Contains:
+Jonathan Nguyen 93997
+Warren Rexroad 74995
+Amanda Trapp 90998
+Steve Chu 37991
+Robert Hill 57999
+Vincent Gonzales 61994
+Paula Hung 30993
+Mary Lou Gilley 14996
+Lou Masson 19992
+Dave Lightfoot 56990
+Joanne Brown 24989
+
+Removing Customer: Jonathan Nguyen 93997
+
+The Heap Contains:
+Amanda Trapp 90998
+Warren Rexroad 74995
+Vincent Gonzales 61994
+Steve Chu 37991
+Robert Hill 57999
+Joanne Brown 24989
+Paula Hung 30993
+Mary Lou Gilley 14996
+Lou Masson 19992
+Dave Lightfoot 56990
+
+Removing Customer: Amanda Trapp 90998
+
+The Heap Contains:
+Warren Rexroad 74995
+Robert Hill 57999
+Vincent Gonzales 61994
+Steve Chu 37991
+Dave Lightfoot 56990
+Joanne Brown 24989
+Paula Hung 30993
+Mary Lou Gilley 14996
+Lou Masson 19992
+
+Removing Customer: Warren Rexroad 74995
+
+The Heap Contains:
+Vincent Gonzales 61994
+Robert Hill 57999
+Paula Hung 30993
+Steve Chu 37991
+Dave Lightfoot 56990
+Joanne Brown 24989
+Lou Masson 19992
+Mary Lou Gilley 14996
+
+Removing Customer: Vincent Gonzales 61994
+
+The Heap Contains:
+Robert Hill 57999
+Dave Lightfoot 56990
+Paula Hung 30993
+Steve Chu 37991
+Mary Lou Gilley 14996
+Joanne Brown 24989
+Lou Masson 19992
+
+Removing Customer: Robert Hill 57999
+
+The Heap Contains:
+Dave Lightfoot 56990
+Steve Chu 37991
+Paula Hung 30993
+Lou Masson 19992
+Mary Lou Gilley 14996
+Joanne Brown 24989
+
+Removing Customer: Dave Lightfoot 56990
+
+The Heap Contains:
+Steve Chu 37991
+Joanne Brown 24989
+Paula Hung 30993
+Lou Masson 19992
+Mary Lou Gilley 14996
+
+Removing Customer: Steve Chu 37991
+
+The Heap Contains:
+Paula Hung 30993
+Joanne Brown 24989
+Mary Lou Gilley 14996
+Lou Masson 19992
+
+Removing Customer: Paula Hung 30993
+
+The Heap Contains:
+Joanne Brown 24989
+Lou Masson 19992
+Mary Lou Gilley 14996
+
+Removing Customer: Joanne Brown 24989
+
+The Heap Contains:
+Lou Masson 19992
+Mary Lou Gilley 14996
+
+Removing Customer: Lou Masson 19992
+
+The Heap Contains:
+Mary Lou Gilley 14996
+
+Removing Customer: Mary Lou Gilley 14996
+
+The Heap Contains:
+        Heap is empty
+
+        ***goodbye***
+Press any key to continue . . .
