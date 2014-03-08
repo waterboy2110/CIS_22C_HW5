@@ -19,8 +19,8 @@ vector<Customer> customers;						// A dynamic array of customer objects
 // **************************************************
 void PriorityHeap::heapPrint() const
 {
-	cout << "The Heap Contains:\n";
-	for(int i = 0; i < count; i++)
+	cout << "\nThe Heap Contains:\n";
+	for(int i = 0; i < customers.size(); i++)
 		cout << customers[i].getName() 
 		<< " " << customers[i].getSerialNumber() << endl;
 }
@@ -82,13 +82,12 @@ void PriorityHeap::reHeapDn(int root, int bottom)
 		if(customers[root].getSerialNumber() < customers[maxChild].getSerialNumber())
 		{    //swap
 			temp = customers[root];
-			customers[root] = customers[maxChild];
+			customers[root] = customers[maxChild];				// crashes here in recursion
 			customers[maxChild] = temp;
-			reHeapDn(maxChild, bottom);
+			reHeapDn(maxChild, bottom);							
 		}
 	}
 
-	
 	/*	
 From example
 void Heap::ReheapDown(int root, int bottom)
@@ -122,7 +121,7 @@ http://sourcecodemania.com/heap-data-structure-in-cpp/
 
     if ( there is a left child)
         leftKey = left child key
-        if ( there is a left child)
+        if ( there is a left child)			//right child?
             rightKey = right child key
         else
             rightKey = null
@@ -170,14 +169,14 @@ void PriorityHeap::calcSerialNumber(Customer &cust)
 // **************************************************
 bool PriorityHeap::insertHeap(Customer cust)
 {
-	calcSerialNumber(cust);							// Calculate the SerialNumber - this is the heaps key
-	customers.push_back(cust);						// Insert the customer into the array
-	
-	// New Customer to insert
-	cout << "\nInsert Customer: " << customers[count].getName() 
-		<< " " << customers[count].getSerialNumber() <<  endl;
 
-	reHeapUp(count);								// Call reHeapUp after each insert
+
+	calcSerialNumber(cust);													// Calculate the SerialNumber - this is the heaps key
+	customers.push_back(cust);												// Insert the customer into the array
+	cout << "\nInsert Customer: " << customers[count].getName() 
+		 << " " << customers[count].getSerialNumber() <<  endl;				// New Customer to insert
+
+	reHeapUp(count);														// Call reHeapUp after each insert
 	count++;
 
 	heapPrint();
@@ -190,16 +189,22 @@ bool PriorityHeap::insertHeap(Customer cust)
 //
 //
 // **************************************************
-bool PriorityHeap::deleteRoot(int last, Customer &customerOut)
+bool PriorityHeap::deleteRoot(int last)
 {
 	if(customers.size() == 0)				// Heap is empty
 		return false;
 	
-	customerOut = customers[0];
-	customers[0] = customers[last];
-	reHeapDn(0, last);
-	setCount(last--);
-	customers.pop_back();					// Delete the bottom customer (was the root)
+	cout << "\nRemoving Customer: " << customers[0].getName() << " " << customers[0].getSerialNumber() << endl;
+
+	customers[0] = customers[customers.size() - 1];			// Move the last node to the root
+	customers.pop_back();								// Delete the last node
+	//setCount(last--);
+	
+	reHeapDn(0, customers.size() - 1);
+	//count--;
+	//setCount(last--);
+	//customers.pop_back();					// Delete the bottom customer (was the root)
+	heapPrint();
 	return true;
 
 /*

@@ -20,6 +20,7 @@ using namespace System;
 // Function Prototypes
 bool processFile(PriorityHeap *);					// Open and process the input file
 void Strtok(vector<string>*, string, char*);		// Split up the string into sub strings.
+void removeCustomers(PriorityHeap *);
 
 int main(array<System::String ^> ^args)
 {
@@ -29,7 +30,8 @@ int main(array<System::String ^> ^args)
 
 	bool success = processFile(ptrPriorityHeap);			// Add the file data to the node
 
-	// Call printManager to display output.
+	removeCustomers(ptrPriorityHeap);						// Remove customers from the heap
+
 	// delete ptrPriorityHeap;
 	cout << "\n\t***goodbye***\n";
     return 0;
@@ -115,4 +117,18 @@ void Strtok(vector<string>* vstring, string cptr, char* delimiter)
 	}
 	stemp.assign(astring,start,astring.length()-start);
 	vstring->push_back(stemp);
+}
+
+//**************************************************
+// Definition of function removeCustomers
+// Calls the deleteCustomer function and removes
+// customers from the heap. Loops through and removes
+// all customers
+// Pre - A pointer to the PriorityHeap
+// Post - Customers are deleted.
+//**************************************************
+void removeCustomers(PriorityHeap *heap)
+{
+	for(int i = heap->getCount(); i > 0; i--)
+		heap->deleteRoot(heap->getCount());
 }

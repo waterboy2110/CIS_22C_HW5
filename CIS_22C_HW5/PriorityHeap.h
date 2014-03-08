@@ -66,7 +66,7 @@ public:
 	void reHeapUp(int);									// ReHeapUp example from class
 	void reHeapDn(int, int);							// ReHeapDn example from class
 	bool isEmpty() const;								// Determine if tree is empty
-    bool deleteRoot(int, Customer&);								// Delete the root customer in the heap.
+    bool deleteRoot(int);								// Delete the root customer in the heap.
 	void heapPrint() const;								// Prints the heap.
 	void setCount(int aCount){count = aCount;}			// Needed to initialize count.
 	void calcSerialNumber(Customer&);					// Calculate the SN in the insertHeap method
